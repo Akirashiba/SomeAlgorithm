@@ -69,7 +69,7 @@ class ComparisonSort(SortAlgorithm):
                     break
 
 
-    def MergeSort(self):
+    def MergeSortRecursive(self, L):
         """
         // 分类 -------------- 内部比较排序
         // 数据结构 ---------- 数组
@@ -79,9 +79,31 @@ class ComparisonSort(SortAlgorithm):
         // 所需辅助空间 ------ O()
         // 稳定性 ------------ 
         """
-        pass
+        if len(L) > 1:
+            left = self.MergeSortRecursive(L[:len(L) // 2])
+            right = self.MergeSortRecursive(L[len(L) // 2:])
+            k, i, j = 0, 0, 0
+            while i < len(left) and j < len(right):
+                if left[i] < right[j]:
+                    L[k] = left[i]
+                    i += 1
+                else:
+                    L[k] = right[j]
+                    j += 1
+                k += 1
 
-    def QuickSort(self, L):
+            if i < len(left):
+                for c in range(i, len(left)):
+                    L[k] = left[c]
+                    k += 1
+            else:
+                for c in range(j, len(right)):
+                    L[k] = right[c]
+                    k += 1
+        return L
+
+
+    def QuickSortRecursive(self, L):
         """
         // 分类 -------------- 内部比较排序
         // 数据结构 ---------- 数组
@@ -102,17 +124,40 @@ class ComparisonSort(SortAlgorithm):
                 while L[i] <= k and i < j:
                     i += 1
                 L[i], L[j] = L[j], L[i]
-            return self.QuickSort(L[:i]) + [k] + self.QuickSort(L[i+1:])
+            return self.QuickSortRecursive(L[:i]) + [k] + self.QuickSortRecursive(L[i+1:])
         else:
             return L
 
-    def HeapSort(self):
-        pass
+    def HeapSortRecursive(self, L):
+        """
+        // 分类 -------------- 内部比较排序
+        // 数据结构 ---------- 数组
+        // 最差时间复杂度 ---- O()
+        // 最优时间复杂度 ---- O()
+        // 平均时间复杂度 ---- O()
+        // 所需辅助空间 ------ O()
+        // 稳定性 ------------ 
+        """
+        if len(L) == 1:
+            return L
 
+        for i in range(len(L) // 2 - 1, -1, -1):
+            leftleaf = i * 2 + 1
+            rightleaf = i * 2 + 2
+            if rightleaf < len(L) and L[rightleaf] > L[i]:
+                L[rightleaf], L[i] = L[i], L[rightleaf]
+            if leftleaf < len(L) and L[leftleaf] > L[i]:
+                L[leftleaf], L[i] = L[i], L[leftleaf]
+
+        L[0], L[-1] = L[-1], L[0]
+        return self.HeapSortRecursive(L[:-1]) + [L[-1]]
+
+    def ShellSort(self):
+        
 
 if __name__ == "__main__":
     test_list = [2, 4, 3, 6, 33, 2, 7, 8, 9]
     cs = ComparisonSort(test_list)
-    print(cs.QuickSort(test_list))
+    print(cs.MergeSort(test_list))
     print(cs.L)
         
