@@ -68,7 +68,6 @@ class ComparisonSort(SortAlgorithm):
                         self.swap(k, k - 1)
                     break
 
-
     def MergeSortRecursive(self, L):
         """
         // 分类 -------------- 内部比较排序
@@ -101,7 +100,6 @@ class ComparisonSort(SortAlgorithm):
                     L[k] = right[c]
                     k += 1
         return L
-
 
     def QuickSortRecursive(self, L):
         """
@@ -153,7 +151,7 @@ class ComparisonSort(SortAlgorithm):
         return self.HeapSortRecursive(L[:-1]) + [L[-1]]
 
     def ShellSort(self):
-        
+        pass
 
 if __name__ == "__main__":
     test_list = [2, 4, 3, 6, 33, 2, 7, 8, 9]
