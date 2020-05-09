@@ -38,8 +38,6 @@ class TreeTraversal:
     @classmethod
     def preorder_traversal_iteratively(cls, root):
         # 前序遍历非递归版本
-        # 算法思想: 不用递归也只能用堆栈来代替了
-        # 前序遍历 先右后左压栈
         if root is None:
             return []
         stack, result = [], []
@@ -57,8 +55,6 @@ class TreeTraversal:
     @classmethod
     def inorder_traversal_iteratively(cls, root):
         # 中序遍历非递归版本
-        # 算法思想: 一直往左孩子走 遇到的结点压栈
-        # 左孩子没有就往右孩子走
         stack, result = [], []
         while stack or root:
             if root:
@@ -73,8 +69,23 @@ class TreeTraversal:
     @classmethod
     def postorder_traversal_iteratively(cls, root):
         # 后序遍历非递归版本
-        # 算法思想:
-        stack, result = [], []
+        result = []
+        if root is None:
+            return result
+        stack1 = [root]
+        stack2 = []
+
+        while stack1:
+            cur_root = stack1.pop()
+            stack2.append(cur_root)
+            if cur_root.left:
+                stack1.append(cur_root.left)
+            if cur_root.right:
+                stack1.append(cur_root.right)
+        
+        while stack2:
+            cur_root = stack2.pop()
+            result.append(cur_root.val)
 
 
 if __name__ == "__main__":
