@@ -156,6 +156,6 @@ class ComparisonSort(SortAlgorithm):
 if __name__ == "__main__":
     test_list = [2, 4, 3, 6, 33, 2, 7, 8, 9]
     cs = ComparisonSort(test_list)
-    print(cs.MergeSort(test_list))
+    print(cs.InsertionSort())
     print(cs.L)
         
